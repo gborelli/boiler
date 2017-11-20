@@ -1,7 +1,5 @@
-// import path from 'path';
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-// import CommonsChunkPlugin from 'webpack/lib/optimize/CommonsChunkPlugin';
-// import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import ENTRYPOINTS from './entrypoints';
@@ -25,12 +23,9 @@ export default {
         exclude: /node_modules/,
       },
       {
-        test: /\.js$/,
+        test: /(\.jsx|\.js)$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
-        loaders: [
-          'jsx-loader',
-          'babel-loader',
-        ],
       },
       {
         test: /\.css$/,
@@ -53,6 +48,8 @@ export default {
               loader: 'css-loader',
               options: {
                 sourceMap: true,
+                // modules: true,
+                importLoaders: 1,
               },
             },
             {
@@ -65,7 +62,6 @@ export default {
         }),
       },
     ],
-
   },
 
   resolve: {
@@ -77,7 +73,7 @@ export default {
     //   // product: path.resolve(PATH.src.desktop, 'product'),
     //   common: PATH.src.common
     // },
-    // extensions: ['.json', '.js', ],
+    extensions: ['.json', '.js', '.jsx'],
   },
   plugins: [
     // new CommonsChunkPlugin({
@@ -86,33 +82,19 @@ export default {
     //  minChunks: 2
     // }),
 
-    /*
     new HtmlWebpackPlugin({
-      inject: 'head',
-      excludeChunks: ['common', 'f1','f2','f3','f4','f5','f6','Utils'],
-    filename: 'css_sources.html',
-      template: path.resolve(PATH.src.less, 'css_links.tmpl'),
-      minify: false
+      filename: 'index.html',
+      template: path.resolve(PATH.public, 'index.html'),
+      // excludeChunks: [
+      //   'docs/assets/main',
+      // ],
+      minify: false,
     }),
-    */
-
-    // new HtmlWebpackPlugin({
-    //   filename: 'javascript_sources.html',
-    //   template: path.resolve(PATH.src, 'js_links.tmpl'),
-    //   excludeChunks: [
-    //     'docs/assets/main',
-    //   ],
-    //   minify: false
-    // }),
 
     new ExtractTextPlugin({
       filename: '[name].css',
       allChunks: true,
     }),
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: 'static',
-    //   openAnalyzer: false,
-    //   reportFilename: path.resolve(PATH.report, 'webpack.build.report.html')
-    // }),
+
   ],
 };

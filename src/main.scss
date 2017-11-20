@@ -1,0 +1,7 @@
+$border-colors: Gainsboro !default;
+$main-padding: 2rem !default;
+
+.main-wrapper {
+  border: 1px solid $border-colors;
+  padding: $main-padding;
+}

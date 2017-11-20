@@ -1,26 +1,22 @@
+import path from 'path';
 import webpack from 'webpack';
 import Merge from 'webpack-merge';
 
 import CommonConfig from './webpack.common';
+import PATH from './paths';
 
 
 export default Merge(CommonConfig, {
-  watch: process.env.NODE_ENV === 'development',
-  devtool: 'eval-source-map',
+  // watch: process.env.NODE_ENV === 'development',
+  // devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
+  devServer: {
+    hot: true,
+    watchContentBase: true,
+    // publicPath: config.output.publicPath,
+    contentBase: path.resolve(PATH.public),
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ],
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.jsx?$/, // both .js and .jsx
-  //       loader: 'eslint-loader',
-  //       include: '/scripts',
-  //       enforce: 'pre',
-  //       options: {
-  //         fix: true
-  //       }
-  //     }
-  //   ]
-  // }
 });

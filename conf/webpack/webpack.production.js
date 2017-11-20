@@ -1,4 +1,4 @@
-import webpack from 'webpack'; //to access built-in plugins
+import webpack from 'webpack'; // to access built-in plugins
 import Merge from 'webpack-merge';
 import CommonConfig from './webpack.common';
 
@@ -8,12 +8,12 @@ export default Merge(CommonConfig, {
   plugins: [
     new webpack.LoaderOptionsPlugin({
       minimize: true,
-      debug: false
+      debug: false,
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       parallel: true,
@@ -24,7 +24,7 @@ export default Merge(CommonConfig, {
         //   beautify: false,
         // },
         compress: true, // switch to true?
-      }
-    })
-  ]
+      },
+    }),
+  ],
 });

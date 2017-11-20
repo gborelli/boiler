@@ -8,4 +8,3 @@ export default {
     path.resolve(PATH.src),
   ],
 };
-
