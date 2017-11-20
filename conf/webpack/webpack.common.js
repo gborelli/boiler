@@ -27,9 +27,10 @@ export default {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        loaders: [
+          'jsx-loader',
+          'babel-loader',
+        ],
       },
       {
         test: /\.css$/,
