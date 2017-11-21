@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm run clean && webpack --env production",
     "clean": "rimraf build",
     "clean:all": "npm run clean && rimraf node_modules",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --env build",
-    "start": "webpack-dev-server --open",
-    "dev": "webpack --progress --colors --watch --env dev"
+    "dev": "webpack --progress --colors --watch --env development",
+    "monitor": "webpack-dev-server --open --env monitor",
+    "start": "webpack-dev-server --open --env development"
   },
   "author": "Giorgio",
   "license": "ISC",

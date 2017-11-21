@@ -7,7 +7,6 @@ import PATH from './paths';
 
 
 export default Merge(CommonConfig, {
-  // watch: process.env.NODE_ENV === 'development',
   // devtool: 'inline-source-map',
   devtool: 'cheap-module-source-map',
   devServer: {
