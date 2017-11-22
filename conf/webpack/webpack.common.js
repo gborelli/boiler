@@ -1,9 +1,27 @@
 import path from 'path';
+import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import ENTRYPOINTS from './entrypoints';
 import PATH from './paths';
+
+const TARGET = process.env.npm_lifecycle_event;
+
+const htmlOptions = () => (
+  TARGET === 'start' ? null : {
+    removeComments: true,
+    collapseWhitespace: true,
+    removeRedundantAttributes: true,
+    useShortDoctype: true,
+    removeEmptyAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    keepClosingSlash: true,
+    minifyJS: true,
+    minifyCSS: true,
+    minifyURLs: true,
+  }
+);
 
 export default {
   context: PATH.src,
@@ -53,6 +71,18 @@ export default {
               },
             },
             {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                ident: 'postcss',
+                plugins: () => [
+                  autoprefixer({
+                    flexbox: 'no-2009',
+                  }),
+                ],
+              },
+            },
+            {
               loader: 'sass-loader',
               options: {
                 sourceMap: true,
@@ -61,6 +91,15 @@ export default {
           ],
         }),
       },
+      {
+        test: [/\.bmp$/, /\.ico$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: '[name].[ext]',
+        },
+      },
+
     ],
   },
 
@@ -88,7 +127,7 @@ export default {
       // excludeChunks: [
       //   'docs/assets/main',
       // ],
-      minify: false,
+      minify: htmlOptions(),
     }),
 
     new ExtractTextPlugin({
